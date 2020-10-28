@@ -48,14 +48,7 @@ function SinglePost(props) {
       postMarkup = (
         <Grid>
           <Grid.Row>
-            <Grid.Column width={2}>
-              <Image
-                src='https://react.semantic-ui.com/images/avatar/large/molly.png'
-                size="small"
-                floated="right" 
-              />
-            </Grid.Column>
-            <Grid.Column width={10}>
+            <Grid.Column width={16}>
               <Card fluid>
                 <Card.Content>
                   <Card.Header>{username}</Card.Header>

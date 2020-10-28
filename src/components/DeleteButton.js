@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import gql from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, gql } from '@apollo/client';
 import { Button, Confirm, Icon, Popup } from 'semantic-ui-react';
 
 import { FETCH_POSTS_QUERY } from '../util/graphql'
@@ -15,10 +14,10 @@ function DeleteButton({ postId, commentId, callback }){
     update(proxy){
       setConfirmOpen(false)
       if(!commentId){
-        const data = proxy.readQuery({
+        const newData = proxy.readQuery({
           query: FETCH_POSTS_QUERY
         })
-        data.getPosts = data.getPosts.filter(p => p.id !== postId)
+        const data = { getPosts : newData.getPosts.filter(p => p.id !== postId)}
         proxy.writeQuery({ query: FETCH_POSTS_QUERY, data })
       }
 
