@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Card, Image } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
@@ -11,10 +11,15 @@ import CommentButton from './CommentButton'
 function PostCard({post: { body, createdAt, id, username, likeCount, commentCount, likes}}) {
   const { user } = useContext(AuthContext)
 
+  console.log(user);
+
   return (
     <Card fluid>
       <Card.Content>
-        <Card.Header>{username}</Card.Header>
+        { user ?
+          <Card.Header as={Link} to={`/profile/${username}`}>{username}</Card.Header> :
+          <Card.Header>{username}</Card.Header>
+        }
         <Card.Meta as={Link} to={`/posts/${id}`}>{moment(createdAt).fromNow()}</Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>

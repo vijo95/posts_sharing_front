@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { Button, Card, Grid, Image, Icon, Label, Transition, Form } from 'semantic-ui-react'
+import { Button, Card, Grid, Icon, Label, Transition, Form } from 'semantic-ui-react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 import { AuthContext } from '../context/auth'
 import LikeButton from '../components/LikeButton'
@@ -39,7 +40,6 @@ function SinglePost(props) {
   if(!data){
     postMarkup = <p>Loading post..</p>
   } else {
-    console.log(data);
     const { 
       id, body, createdAt, 
       username, comments, likes, 
@@ -51,7 +51,10 @@ function SinglePost(props) {
             <Grid.Column width={16}>
               <Card fluid>
                 <Card.Content>
-                  <Card.Header>{username}</Card.Header>
+                  { user ?
+                    <Card.Header as={Link} to={`/profile/${username}`}>{username}</Card.Header> :
+                    <Card.Header>{username}</Card.Header>
+                  }
                   <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
                   <Card.Description>{body}</Card.Description>
                 </Card.Content>
